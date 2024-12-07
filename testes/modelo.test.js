@@ -23,3 +23,25 @@ test('Testando cadastro de três perguntas', () => {
   expect(perguntas[2].num_respostas).toBe(0);
   expect(perguntas[1].id_pergunta).toBe(perguntas[2].id_pergunta-1);
 });
+
+test('Testando cadastro de pergunta', () => {
+  const texto = 'Qual é a capital do Brasil?';
+  const id_pergunta = modelo.cadastrar_pergunta(texto);
+
+  const pergunta = modelo.get_pergunta(id_pergunta);
+  expect(pergunta.texto).toBe(texto);
+  expect(pergunta.id_usuario).toBe(1);
+});
+
+test('Testando cadastro de resposta', () => {
+  const textoPergunta = 'Qual é a capital do Brasil?';
+  const id_pergunta = modelo.cadastrar_pergunta(textoPergunta);
+  
+  const textoResposta = 'Brasília';
+  const id_resposta = modelo.cadastrar_resposta(id_pergunta, textoResposta);
+  
+  const respostas = modelo.get_respostas(id_pergunta);
+  expect(respostas.length).toBe(1);
+  expect(respostas[0].texto).toBe(textoResposta);
+});
+
